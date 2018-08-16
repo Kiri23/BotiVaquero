@@ -29,12 +29,11 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 
-app.get('/', function (req, res) {
-  var answer
+app.get('/*', function (req, res) {
+  var query = req.query.question;
   // You can find your project ID in your Dialogflow agent settings
   const {
     sessionPath,
-    query,
     languageCode
   } = setupDialogoFlow();
 
@@ -49,8 +48,7 @@ app.get('/', function (req, res) {
     }
   };
 
-  detectIntent(request).then(answ => {
-    answer = answ
+  detectIntent(request).then(answer => {
     console.log("answer from route promise ", answer)
     res.render('index', {
       title: answer
@@ -61,7 +59,7 @@ app.get('/', function (req, res) {
 
 app.post('/query', function (req, res) {
   var question = req.body.query;
-  res.send('pregunta: ' + question);
+  res.redirect(`/?question=${question}`)
 });
 
 
@@ -98,12 +96,12 @@ detectIntent(request);
 function setupDialogoFlow() {
   const projectId = "botivaquero-1534364188832"; //https://dialogflow.com/docs/agents#settings
   const sessionId = "quickstart-session-id2";
-  const query = "Que dia se paga la matricula";
+  // const query = "Que dia se paga la matricula";
   const languageCode = "es";
   const sessionPath = sessionClient.sessionPath(projectId, sessionId);
   return {
     sessionPath,
-    query,
+    // query,
     languageCode
   };
 }
