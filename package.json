@@ -1,0 +1,22 @@
+{
+  "name": "botivaquero",
+  "version": "1.0.0",
+  "description": "A bot to answer frequently question of university students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Bot",
+    "DialogFlow",
+    "Api.ai",
+    "Natural",
+    "Language",
+    "Processing"
+  ],
+  "author": "Christian Nogueras Rosado, Roberto del Valle, Dervin",
+  "license": "ISC",
+  "dependencies": {
+    "dialogflow": "^0.6.0"
+  }
+}
