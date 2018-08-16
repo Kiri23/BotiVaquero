@@ -24,9 +24,33 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', function (req, res) {
-  res.render('index', {
-    title: "hola"
+  var answer
+  // You can find your project ID in your Dialogflow agent settings
+  const {
+    sessionPath,
+    query,
+    languageCode
+  } = setupDialogoFlow();
+
+  // The text query request.
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: query,
+        languageCode: languageCode
+      }
+    }
+  };
+
+  detectIntent(request).then(answ => {
+    answer = answ
+    console.log("answer from route promise ", answer)
+    res.render('index', {
+      title: answer
+    })
   })
+
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
@@ -59,14 +83,29 @@ const request = {
 
 detectIntent(request);
 
+function setupDialogoFlow() {
+  const projectId = "botivaquero-1534364188832"; //https://dialogflow.com/docs/agents#settings
+  const sessionId = "quickstart-session-id2";
+  const query = "Que dia se paga la matricula";
+  const languageCode = "es";
+  const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  return {
+    sessionPath,
+    query,
+    languageCode
+  };
+}
+
 // Send request and log result
 async function detectIntent(request) {
+  var answer = "";
   try {
     const responses = await sessionClient.detectIntent(request);
     console.log("Detected Intent");
     const result = responses[0].queryResult;
     console.log(`  Query: ${result.queryText}`);
     console.log(`  Response: ${result.fulfillmentText}`);
+    answer = result.fulfillmentText
     if (result.intent) {
       console.log(`  Intent: ${result.intent.displayName}`);
     } else {
@@ -75,6 +114,7 @@ async function detectIntent(request) {
   } catch (error) {
     console.error(`Error - ${error}`);
   }
+  return answer;
 }
 
 // sessionClient
