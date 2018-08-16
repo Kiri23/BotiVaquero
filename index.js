@@ -1,6 +1,8 @@
 'use strict';
 
 var Promise = global.Promise || require('promise');
+var bodyParser = require('body-parser');
+
 
 
 const express = require('express'),
@@ -17,6 +19,10 @@ var hbs = exphbs.create({
 });
 
 app.use(express.static('public/'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('handlebars', hbs.engine);
@@ -52,6 +58,12 @@ app.get('/', function (req, res) {
   })
 
 });
+
+app.post('/query', function (req, res) {
+  var question = req.body.query;
+  res.send('pregunta: ' + question);
+});
+
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
