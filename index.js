@@ -1,3 +1,38 @@
+'use strict';
+
+var Promise = global.Promise || require('promise');
+
+
+const express = require('express'),
+  exphbs = require("express-handlebars")
+const app = express()
+// Create `ExpressHandlebars` instance with a default layout.
+var hbs = exphbs.create({
+  defaultLayout: 'main',
+  // Uses multiple partials dirs, templates in "shared/templates/" are shared
+  // with the client-side of the app (see below).
+  partialsDir: [
+    'view/partials/'
+  ]
+});
+
+app.use(express.static('public/'));
+
+// Register `hbs` as our view engine using its bound `engine()` function.
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+
+app.get('/', function (req, res) {
+  res.render('index', {
+    title: "hola"
+  })
+});
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
+
+
 // You can find your project ID in your Dialogflow agent settings
 const projectId = "botivaquero-1534364188832"; //https://dialogflow.com/docs/agents#settings
 const sessionId = "quickstart-session-id2";
