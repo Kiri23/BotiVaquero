@@ -1,8 +1,13 @@
-<h1>Boti Vaquero App</h1>
-<h2>Busca Aqui</h2>
-<form action="/query" method="post">
-    <input type="search" name="query" id="">
-    <button type="submit"> ask</button>
-</form>
 
-<h2>La respuesta seria {{title}}</h2>
+<div class="container text-center">
+
+    <h1>Boti-Vaquero</h1>
+    <form action="/query" method="post">
+        <div id="button">
+            <input type="search" name="query" id="input">
+            <button type="submit" id="rec" class="btns">Enter</button>
+        </div>
+    </form>
+    <br><p class="text botchat">Repuesta<p><div id="response" class="text-center">{{title}}</textarea>
+
+</div>
