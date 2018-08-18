@@ -1,12 +1,10 @@
 'use strict';
 
 var Promise = global.Promise || require('promise');
+const express = require('express')
+const exphbs = require("express-handlebars")
 var bodyParser = require('body-parser');
 
-
-
-const express = require('express'),
-  exphbs = require("express-handlebars")
 const app = express()
 // Create `ExpressHandlebars` instance with a default layout.
 var hbs = exphbs.create({
