@@ -4,7 +4,7 @@
   "description": "A bot to answer frequently question of university students",
   "main": "index.js",
   "scripts": {
-    "start": "chmod 755 '../GCP/command.sh' && node index.js",
+    "start": "chmod 755 '../GCP/command.sh' && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
