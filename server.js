@@ -6,7 +6,6 @@ const exphbs = require("express-handlebars")
 var bodyParser = require('body-parser');
 // User Files
 var dialogflowConfig = require('./dialogflow')
-var config = require('./config')
 
 const app = express()
 
@@ -42,40 +41,5 @@ app.post('/query', function (req, res) {
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
-
-
-
-
+const request = dialogflowConfig.createRequest("cuando es la matricula")
 dialogflowConfig.detectIntent(request);
-
-function setupDialogoFlow() {
-  const languageCode = "es";
-
-
-  return {
-    sessionPath,
-    languageCode
-  };
-}
-
-// Send request and log result
-async function detectIntent(request) {
-  // Por si answer se queda en blanco. Que aparezca algo por lo menos en el UI y no un empty string
-  var answer = "No he encontrado una respuesta aqui";
-  try {
-    const responses = await sessionClient.detectIntent(request);
-    console.log("Detected Intent");
-    const result = responses[0].queryResult;
-    console.log(`  Query: ${result.queryText}`);
-    console.log(`  Response: ${result.fulfillmentText}`);
-    answer = result.fulfillmentText
-    if (result.intent) {
-      console.log(`  Intent: ${result.intent.displayName}`);
-    } else {
-      console.log(`  No intent matched.`);
-    }
-  } catch (error) {
-    console.error(`Error - ${error}`);
-  }
-  return answer;
-}
