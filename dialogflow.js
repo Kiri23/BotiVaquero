@@ -22,6 +22,15 @@ module.exports = {
     languageCode: "es"
 };
 
-module.exports.detectIntent = function (id) {
-
+module.exports.createRequest = function (query) {
+  // The text query request.
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: query,
+        languageCode: languageCode
+      }
+    }
+  };
 }
