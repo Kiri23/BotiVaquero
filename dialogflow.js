@@ -22,6 +22,26 @@ module.exports = {
     languageCode: "es"
 };
 
+module.exports.detectIntent = async function (request){ 
+  var answer = "No he encontrado una respuesta aqui";
+  try {
+    const responses = await sessionClient.detectIntent(request);
+    console.log("Detected Intent");
+    const result = responses[0].queryResult;
+    console.log(`  Query: ${result.queryText}`);
+    console.log(`  Response: ${result.fulfillmentText}`);
+    answer = result.fulfillmentText
+    if (result.intent) {
+      console.log(`  Intent: ${result.intent.displayName}`);
+    } else {
+      console.log(`  No intent matched.`);
+    }
+  } catch (error) {
+    console.error(`Error - ${error}`);
+  }
+  return answer;
+};
+// Create Request with a Dynamic query
 module.exports.createRequest = function (query) {
   // The text query request.
   const request = {
@@ -33,4 +53,5 @@ module.exports.createRequest = function (query) {
       }
     }
   };
+    
 }
