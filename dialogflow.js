@@ -53,5 +53,6 @@ module.exports.createRequest = function (query) {
       }
     }
   };
+   return request;
     
 }
